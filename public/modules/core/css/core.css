@@ -1,0 +1,73 @@
+.content {
+  margin-top: 50px;
+}
+.undecorated-link:hover {
+  text-decoration: none;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+.ng-invalid.ng-dirty {
+  border-color: #FA787E;
+}
+.ng-valid.ng-dirty {
+  border-color: #78FA89;
+}
+
+.content--head {
+  margin-top: 0;
+}
+
+.main_head  {
+  position: relative;
+  background-image: url('../img/backgrounds-for-nature-desktop-wallpaper-tumblr-vintage-desktop-picture-tumblr-wallpaper.jpg');
+  background-position: 50%;
+  min-height: 450px;
+}
+
+header {
+  background:  transparent !important;
+  border: none !important;
+  color: #fff;
+}
+.content {
+  margin-top: 0;
+}
+
+.search-box {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 80px;
+}
+.search-box--box {
+  vertical-align: middle;
+}
+.form-group {
+  padding: 0;
+}
+.form-row .form-group input {
+  width: 100%;
+  border-radius: 0;
+  height: 44px;
+  font-size: 18px;
+  color: #222;
+}
+.btn-search {
+  height: 44px;
+  border-radius: 0;
+  width: 100%;
+  font-size: 18px;
+  border-color: #ff5a5f;
+  border-bottom-color: #e00007;
+  background-color: #ff5a5f;
+  color: #fff;
+}
+.btn-search:hover, .btn-search:focus {
+  border-color: #ff7e82;
+  border-bottom-color: #fa0008;
+  background-color: #ff7e82;
+  color: #fff;
+}
