@@ -30,8 +30,12 @@ var GoodsSchema = new Schema({
         required: true
     },
     price: {
-        type: Number,
+        type: String,
         default: 0
+    },
+    phone: {
+        type: String,
+        required: true
     },
     photos: [],
     age: {

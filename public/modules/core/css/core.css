@@ -71,3 +71,58 @@ header {
   background-color: #ff7e82;
   color: #fff;
 }
+
+/* Nav bar */
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a {
+  background: transparent;
+}
+
+
+/*Form groups*/
+.form-group input, .form-group select, .form-group button, .form-group textarea {
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.form-group textarea {
+  height: 220px;
+  width: 100%;
+  resize: none;
+}
+.form-inline--table {
+  display: table;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.form-inline--table .form-group {
+  display: table-cell;
+}
+.form-inline--table .form-group .form-control {
+  width: 100%;
+}
+
+
+/*Buttons*/
+button:disabled {
+  cursor: no-drop;
+}
+.btn--width {
+  width: 100%;
+}
+.btn-red {
+  height: 44px;
+  border-radius: 0;
+  font-size: 18px;
+  border-color: #ff5a5f;
+  border-bottom-color: #e00007;
+  background-color: #ff5a5f;
+  color: #fff;
+}
+.btn-red:hover, .btn-red:focus {
+  border-color: #ff7e82;
+  border-bottom-color: #fa0008;
+  background-color: #ff7e82;
+  color: #fff;
+}

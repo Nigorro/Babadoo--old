@@ -5,57 +5,79 @@
  */
 var _ = require('lodash'),
     errorHandler = require('../errors.server.controller'),
-    multiparty = require('multiparty'),
-    fs = require('fs'),
-    easyimage = require('easyimage'),
-    knox = require('knox'),
-    mime = require('mime'),
-    mkdirp = require('mkdirp');
+    http = require('http'),
+    path = require('path'),
+    aws = require('aws-sdk');
 
-var client = knox.createClient({
-    key: 'AKIAIIF6YSQYMXPYPUZA',
-    secret: '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',
-    bucket: 'babadoo'
-});
-var images = [];
-var min = 999,
-    max = 999999999999999999;
-var random = Math.random() * (max - min) + min;
-exports.upload = function (req, res, next) {
-    var form = new multiparty.Form();
-    var filesArr = [];
- 
-    form.parse(req, function(err, fields, files) {
-        if (err) {
-            res.writeHead(400, {'content-type': 'text/plain'});
-            res.end('invalid request: ' + err.message);
-            return;
-        } else {
-            for (var file in files) {
-                // client.put(files[file][0].path, { 'x-amz-acl': 'public-read' });
-                easyimage.resize({
-                    src: files[file][0].path, 
-                    dst: files[file][0].path, 
-                    width:640, height:480
-                }).then( function (image) {
-                    console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
-                    client.putFile(files[file][0].path, random + '/' + files[file][0].originalFilename, {'Content-Type': 'image/jpeg'}, function(err, result) {
-                        if (!err) { 
-                            console.log('Uploaded to mazon S3', result.req.url); 
-                            images.push(result.req.url);
-                            console.log(images);
-                        }
-                        else { 
-                            console.log('Failed to upload file to Amazon S3', err); 
-                        }
-                    });
-                },
-                    function (err) {
-                        console.log(err);
-                    }
-                );
+var AWS_ACCESS_KEY = 'AKIAIIF6YSQYMXPYPUZA';
+var AWS_SECRET_KEY = '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';
+var S3_BUCKET = 'babadoo';
+
+exports.upload = function(req, res){
+    var user = req.user;
+
+    if (user) {
+        aws.config.update({accessKeyId: AWS_ACCESS_KEY, secretAccessKey: AWS_SECRET_KEY});
+        var s3 = new aws.S3();
+        console.log(req.query);
+        var s3_params = {
+            Bucket: S3_BUCKET,
+            Key: req.query.file_name,
+            Expires: 60,
+            ContentType: req.query.file_type,
+            ACL: 'public-read'
+        };
+        s3.getSignedUrl('putObject', s3_params, function (err, data) {
+            if(err){
+                console.log(err);
             }
-            console.log('images', images);
-        }
-    });
+            else{
+                var return_data = {
+                    signed_request: data,
+                    url: 'https://'+S3_BUCKET+'.s3.amazonaws.com/'+req.query.file_name
+                };
+                res.write(JSON.stringify(return_data));
+                res.end();
+            }
+        });
+    } else {
+        res.status(400).send({
+            message: 'User is not signed in'
+        });
+    }
 };
+
+// exports.upload = function (req, res) {
+//     var form = new multiparty.Form();
+//     var filesArr = [];
+ 
+//     form.parse(req, function(err, fields, files) {
+//         if (err) {
+//             res.writeHead(400, {'content-type': 'text/plain'});
+//             res.end('invalid request: ' + err.message);
+//             return;
+//         } else {
+//             var imagesPromises = _.values(files).map(function(file) {
+//                 var promiseObject =  easyimage.resize({
+//                     src: file[0].path, 
+//                     dst: file[0].path, 
+//                     width:640, height:480
+//                 }).then(function(images) {      
+//                     return Promise.fromNode(function(callback) {
+//                     client.putFile(file[0].path, random + '/' + file[0].originalFilename, {'Content-Type': 'image/jpeg'}, callback);
+//                     });
+//                 });
+                
+//                 return promiseObject;
+//             });
+
+//             Promise.all(imagesPromises).then(function(images) {
+//               // Here goes the images
+//               console.log(images.map(function(image) {
+//                 return image.req.url;
+//               }));
+//             });
+//         }
+//     });
+// };
+
