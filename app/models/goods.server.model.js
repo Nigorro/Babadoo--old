@@ -33,10 +33,6 @@ var GoodsSchema = new Schema({
         type: String,
         default: 0
     },
-    phone: {
-        type: String,
-        required: true
-    },
     photos: [],
     age: {
         min: { type: Number },
@@ -63,6 +59,20 @@ var GoodsSchema = new Schema({
     isGift: {
         type: Boolean,
         default: false
+    },
+    adress: {
+        city: {  
+            id: { type: Number },
+            name: { type: String }
+        },
+        metro: { 
+            id: { type: Number },
+            name: { type: String }
+        },
+        phone: { 
+            type: String, 
+            require: true 
+        }
     },
     tags: [],
     views: [],

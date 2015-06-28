@@ -1,6 +1,6 @@
 <div class="container">
     <section class="row" data-ng-controller="NewGoodsCtrl">
-        <h3 class="col-md-12 text-center">!{{NewGoodsCtrl.state}}!Для добавления нового объявления заполните поля ниже</h3>
+        <h3 class="col-md-12 text-center">Для добавления нового объявления заполните поля ниже</h3>
         <div class="col-md-6 col-md-offset-3 text-center">
             <form role="form" name="newGoodForm">
                 <span ng-show="newGoodForm.title.$invalid">You break my heart</span> 
@@ -10,51 +10,26 @@
                 <div class="form-group">
                     <textarea class="form-control"  name="description" ng-model="params.description" row="15" placeholder="Описание продукта" required></textarea>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" ng-model="params.title"  placeholder="Цена в рублях">
-                </div>
-                <div class="form-inline form-inline--table">
+                 <div class="form-inline form-inline--table">
                     <div class="form-group">
-                        <select class="form-control">
-                            <option>Москва</option>
-                            <option>Тверь</option>
-                            <option>Питер</option>
-                            <option>Тюмень</option>
-                            <option>Уфа</option>
+                        <label class="control-label">Кому</label>
+                        <select ng-model="params.gender.type" class="form-control">
+                            <option value="all">Всем</option>
+                            <option value="boy">Мальчику</option>
+                            <option value="girl">Девочке</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="params.title"  placeholder="Улица">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option>Пражская</option>
-                            <option>Павелецкая</option>
-                            <option>Калужская</option>
-                            <option>Улица Горачакова</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-inline form-inline--table">
-                    <div class="form-group">
-                        <label class="control-label">Пол ребенка</label>
-                        <select class="form-control">
-                            <option>Мальчик</option>
-                            <option>Девочка</option>
-                            <option>Унисекс</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Сезон</label>
-                        <select class="form-control">
-                            <option>Лето</option>
-                            <option>Зима</option>
-                            <option>Димисезон</option>
+                        <label class="control-label" >Сезон</label>
+                        <select ng-model="params.season.type" class="form-control">
+                            <option value="all">Димисезон</option>
+                            <option value="summer">Лето</option>
+                            <option value="winter">Зима</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Возраст от</label>
-                        <select class="form-control">
+                        <select ng-model="params.age.min" class="form-control">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -63,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">до</label>
-                        <select class="form-control">
+                        <select ng-model="params.age.max" class="form-control">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -73,13 +48,75 @@
                 </div>
                 <div class="form-inline form-inline--table">
                     <div class="form-group">
+                        <label class="control-label">Город</label>
+                        <select ng-model="params.adress.city.id" class="form-control">
+                            <option value="24">Москва</option>
+                            <option value="24">Тверь</option>
+                            <option value="24">Питер</option>
+                            <option value="24">Тюмень</option>
+                            <option value="24">Уфа</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Метро</label>
+                        <select ng-model="params.adress.metro" class="form-control">
+                            <option value="{id:13123, name: '1312312'}">Пражская</option>
+                            <option value="{id:13123, name: '1312312'}">Павелецкая</option>
+                            <option value="{id:13123, name: '1312312'}">Калужская</option>
+                            <option value="{id:13123, name: '1312312'}">Улица Горачакова</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Телефон</label>
+                        <input type="text" class="form-control" name="title" ng-model="params.adress.phone"  placeholder="+7(***)***-**-**" required>
+                    </div>
+                </div>
+                <div class="form-inline form-inline--table">
+                    <div class="form-group" >
+                        <ya-map ya-zoom="11"
+                                ya-center="[38.3061,57.5262]"
+                                ya-options="{balloonMaxWidth: 200}"
+                                ya-after-init="afterInit($target)"
+                                ya-event-click="mapClick($event)"
+                                ya-event-balloonopen="balloonOpen()"
+                                ya-event-contextmenu="handleContext($event)"
+                                >
+                        </ya-map>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="params.price"  placeholder="Цена в рублях">
+                </div>
+                <div class="form-inline form-inline--table">
+                    <div class="form-group">
+                        <fieldset>
+                          <legend>Upload right away</legend>
+                          <div class="up-buttons">
+                            <div ngf-select ng-model="files" class="upload-button"
+                                 ngf-multiple="false" ngf-accept="'*.pdf,*.jpg,*.png'" ng-model-rejected="rejFiles"
+                                 tabindex="0">Attach an Image or PDF
+                            </div>
+                            <br/>
+                            <button ngf-select ng-model="files"
+                                    ngf-multiple="true">Attach Any File
+                            </button>
+                          </div>
+                          <div ngf-drop ngf-select ng-model="files" ng-model-rejected="rejFiles"
+                               ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+                               ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*,application/pdf'"
+                               ngf-drop-available="dropAvailable">
+                            <div ng-hide="dropAvailable">File Drop not available</div>
+                            <div ng-show="dropAvailable">Drop Images or PDFs</div>
+                            <div>click to select</div>
+                          </div>
+                        </fieldset>
                         <button type="file" class="btn btn--width btn-success"><span class="glyphicon glyphicon-upload"></span> Добавить фотографии</button>
                     </div>
                 </div>
 
                 <div class="form-inline form-inline--table">
                     <div class="form-group">
-                        <button ng-disabled="newGoodForm.$invalid" type="file" class="btn  btn-lg btn--width btn-red"><span class="glyphicon glyphicon-save"></span> Сохранить</button>
+                        <button ng-disabled="newGoodForm.$invalid" ng-click="addNewGood()" type="file" class="btn  btn-lg btn--width btn-red"><span class="glyphicon glyphicon-save"></span> Сохранить</button>
                     </div>
                 </div>
             </form>

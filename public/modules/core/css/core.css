@@ -1,6 +1,3 @@
-.content {
-  margin-top: 50px;
-}
 .undecorated-link:hover {
   text-decoration: none;
 }
@@ -25,15 +22,24 @@
   min-height: 450px;
 }
 
-header {
-  background:  transparent !important;
+body {
+  background: #F5F5F5;
+}
+header.navbar{
+  background-color: rgb(89, 89, 89);
   border: none !important;
   color: #fff;
+  margin-bottom: 0;
 }
 .content {
   margin-top: 0;
 }
-
+.container {
+  background: #fff;
+}
+.container--header {
+  background: initial;
+}
 .search-box {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -71,15 +77,33 @@ header {
   background-color: #ff7e82;
   color: #fff;
 }
-
-/* Nav bar */
-.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
-  color: #fff;
+.btn-search--new {
+  height: 50px;
+  /*border-color: #007a87;*/
+  /*border-bottom-color: #004f58;*/
+  /*background-color: #007a87;*/
 }
+.btn-search--new {
+  /*border-color: #009aab;*/
+  /*border-bottom-color: #006671;*/
+  /*background-color: #009aab;*/
+}
+/* Nav bar */
+
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a {
   background: transparent;
 }
+.nav > li > a, .navbar-brand {
+  color: #fff;
+}
 
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: #868383;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #868383;
+}
 
 /*Form groups*/
 .form-group input, .form-group select, .form-group button, .form-group textarea {
@@ -102,8 +126,15 @@ header {
 .form-inline--table .form-group .form-control {
   width: 100%;
 }
-
-
+.control-label {
+  text-align: left;
+  width: 100%;
+}
+ya-map{
+    width: 100%;
+    height: 400px;
+    display: block
+}
 /*Buttons*/
 button:disabled {
   cursor: no-drop;

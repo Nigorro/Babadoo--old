@@ -1,11 +1,5 @@
-<div class="container" data-ng-controller="HeaderController">
+<div class="container container--header" data-ng-controller="HeaderController">
     <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
         <a href="/#/" class="navbar-brand">Babadoo</a>
     </div>
     <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
@@ -54,7 +48,7 @@
                 </ul>
             </li>
              <li ui-route="/signup" ng-class="{active: $uiRoute}">
-                <button type="submit" class="btn btn-default btn-search">Разместить объявлени</button>
+                <button type="submit" class="btn btn-default btn-search btn-search--new">Разместить объявлени</button>
             </li>
         </ul>
     </nav>

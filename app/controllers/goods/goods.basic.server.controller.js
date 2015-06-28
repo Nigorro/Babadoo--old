@@ -15,9 +15,9 @@ var _ = require('lodash'),
 
 exports.newGoods = function (req, res) {
     var user = req.user;
-    console.log(req.query);
+    console.log(req.body);
     if (user) {
-        var goods = new Goods(req.query);
+        var goods = new Goods(req.body);
         goods.author = user.id;
 
         goods.save(function (err){
