@@ -15,13 +15,13 @@ var _ = require('lodash'),
     mime = require('mime'),
     mkdirp = require('mkdirp');
 
-var AWS_ACCESS_KEY = '';
-var AWS_SECRET_KEY = '';
-var S3_BUCKET = '';
+var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY  || '';
+var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY  || '';
+var S3_BUCKET = process.env.S3_BUCKET  || '';
 var client = knox.createClient({
-    key: '',
-    secret: '',
-    bucket: ''
+    key: AWS_ACCESS_KEY,
+    secret: AWS_SECRET_KEY,
+    bucket: S3_BUCKET
 });
 
 exports.upload = function(req, res){
@@ -41,6 +41,7 @@ exports.upload = function(req, res){
         s3.getSignedUrl('putObject', s3_params, function (err, data) {
             if(err){
                 console.log('!!!!!', err);
+                res.status(400).send(err);
             }
             else{
                 var return_data = {
