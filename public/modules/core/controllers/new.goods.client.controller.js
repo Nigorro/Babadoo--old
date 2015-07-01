@@ -48,21 +48,25 @@ angular.module('core').controller('NewGoodsCtrl', ['$scope', '$state','$location
             })
                 .success( function (data) {
                     console.log(data);
-                    var req = {
-                     method: 'POST',
-                     url: data.signed_request,
-                     data: $scope.files,
-                     headers: {
-                        'Content-Type': $scope.files[0].type,
-                    }
-                    };
-                    console.log(req);
-                    $http(req).success(function (data){
-                        console.log(data);
 
-                    }).error(function(err){
-                        console.log('!!!!',err);
-                    });
+                    // TODO: You have to separate links for uploading many files (data.signed_request)
+                    $scope.files.map(function(file) {
+                        var req = {
+                             method: 'PUT',
+                             url: data.signed_request,
+                             data: file,
+                             headers: {
+                                'Content-Type': file.type,
+                            }
+                        };
+                        console.log(req);
+                        $http(req).success(function (data){
+                            console.log(data);
+
+                        }).error(function(err){
+                            console.log('!!!!',err);
+                        });
+                    });  
                 })
                 .error(function (err) {
                     console.log(err);
